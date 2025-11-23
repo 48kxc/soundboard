@@ -4,6 +4,15 @@ let audioElements = {};
 const spinnerElement = document.querySelector(".spinner");
 const containerElement = document.querySelector(".flex-container");
 
+const playSound = (name) => {
+  const audio = audioElements[name];
+  if (!audio) return;
+
+  audio.pause();
+  audio.currentTime = 0;
+  audio.play().catch((err) => console.error("Playback failed", name, err));
+};
+
 // Fetch the JSON file
 let hasLoaded = false;
 let time = Date.now()
@@ -21,13 +30,13 @@ fetch("sounds.json?t=" + time)
       const buttonElement = document.createElement("button");
       buttonElement.classList.add("small-button");
       buttonElement.style.backgroundColor = sound.color;
-      buttonElement.addEventListener("click", () => {
-        if (audioElements[sound.name]) {
-          audioElements[sound.name].currentTime = 0;
-          audioElements[sound.name].play();
-        }
+      buttonElement.addEventListener("click", (event) => {
+        event.stopPropagation();
+        playSound(sound.name);
       });
       soundElement.appendChild(buttonElement);
+
+      soundElement.addEventListener("click", () => playSound(sound.name));
 
       // Create the name element
       const nameElement = document.createElement("p");
