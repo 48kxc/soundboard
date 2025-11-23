@@ -219,6 +219,7 @@ h2 {
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .sound::after {
