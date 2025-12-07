@@ -1,9 +1,3 @@
-diff --git a/og-sw.js b/og-sw.js
-index 55c539543822ee26752f242584e2bd9af8a99041..93a816eed64bb3ee66d31a85fdecbc5ecdbd0aa9 100644
---- a/og-sw.js
-+++ b/og-sw.js
-@@ -1,30 +1,75 @@
- // Install and activate the service worker
 -self.addEventListener('install', function(event) {
 +const CACHE_VERSION = 'v2';
 +const CACHE_NAME = `soundboard-cache-${CACHE_VERSION}`;
