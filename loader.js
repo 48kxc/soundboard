@@ -5,49 +5,29 @@ const containerElement = document.querySelector('.flex-container');
 const delayControl = document.getElementById('delay-control');
 const delayDisplay = document.getElementById('delay-display');
 const delayValue = document.getElementById('delay-value');
-const delayInput = document.getElementById('delay-input');
-const MAX_DELAY = 60000;
-let playbackDelay = Number(delayControl?.value ?? delayInput?.value ?? 0);
+let playbackDelay = Number(delayControl?.value ?? 0);
 let hasLoaded = false;
 
 function formatDelay(ms) {
   const seconds = ms / 1000;
-  return seconds >= 10 ? `${seconds.toFixed(1)}s` : `${seconds.toFixed(2)}s`;
+  return `${seconds.toFixed(1)}s`;
 }
 
-function clampDelay(value) {
-  const numericValue = Number(value);
-  if (Number.isNaN(numericValue)) return 0;
-  return Math.max(0, Math.min(MAX_DELAY, numericValue));
-}
-
-function updateDelayDisplay(value, source) {
-  playbackDelay = clampDelay(value);
+function updateDelayDisplay(value) {
+  playbackDelay = Math.max(0, Number(value) || 0);
   if (delayDisplay) {
     delayDisplay.textContent = formatDelay(playbackDelay);
   }
   if (delayValue) {
     delayValue.textContent = `${playbackDelay}ms`;
   }
-  if (delayControl && source !== 'slider') {
-    delayControl.value = playbackDelay;
-  }
-  if (delayInput && source !== 'input') {
-    delayInput.value = playbackDelay;
-  }
 }
 
 if (delayControl) {
   delayControl.addEventListener('input', (event) => {
-    updateDelayDisplay(event.target.value, 'slider');
+    updateDelayDisplay(event.target.value);
   });
-  updateDelayDisplay(delayControl.value, 'slider');
-}
-
-if (delayInput) {
-  delayInput.addEventListener('input', (event) => {
-    updateDelayDisplay(event.target.value, 'input');
-  });
+  updateDelayDisplay(delayControl.value);
 }
 
 const playSound = (name) => {
