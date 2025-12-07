@@ -13,15 +13,15 @@
     />
     <meta name="robots" content="index, follow" />
 
-    <link rel="stylesheet" href="css/styles.css?v=3" />
-    <link rel="stylesheet" href="css/spinner.css?v=3" />
+    <link rel="stylesheet" href="css/styles.css?v=2" />
+    <link rel="stylesheet" href="css/spinner.css?v=2" />
     <link rel="icon" href="img/mlg-favicon.png" />
     <link rel="shortcut icon" href="img/mlg-favicon.png" type="image/x-icon" />
     <link rel="apple-touch-icon" href="img/mlg-favicon.png" type="image/x-icon" />
     <link rel="manifest" href="./manifest.json" />
 
     <script>
-      const SERVICE_WORKER_VERSION = "v3";
+      const SERVICE_WORKER_VERSION = "v2";
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
           .register(`/sw.js?v=${SERVICE_WORKER_VERSION}`, {
@@ -41,44 +41,54 @@
   <body>
     <div class="page">
       <nav class="top-bar">
-        <div class="brand">Online Soundboard</div>
+        <div class="brand">
+          <span class="dot"></span>
+          Sound Playground
+        </div>
         <div class="top-actions">
-          <button class="btn ghost" onclick="javascript:playAll()">Play All</button>
-          <button class="btn primary" onclick="javascript:stopAll()">Stop All</button>
+          <button class="pill ghost" onclick="javascript:playAll()">Play All</button>
+          <button class="pill" onclick="javascript:stopAll()">Stop All</button>
         </div>
       </nav>
 
       <header class="hero">
         <div class="hero-content">
-          <p class="eyebrow">Minimal & bold</p>
-          <h1>Sound Playground</h1>
+          <p class="eyebrow">Remixed for 2024</p>
+          <h1>Online Soundboard</h1>
           <p class="lede">
-            Stark lines, unified controls, and a flexible delay so you can cue chaos
-            exactly when you want it.
+            A sleek, modern playground for your favorite chaos-inducing sounds. Cue
+            up a delay, click a tile, and let the vibes roll.
           </p>
+          <div class="cta-row">
+            <button class="pill" onclick="javascript:playAll()">Provoke Chaos</button>
+            <button class="pill ghost" onclick="javascript:stopAll()">Stop Everything</button>
+            <a
+              class="pill link"
+              href="https://forms.gle/hoiTBEZ4p14iupXH6"
+              target="_blank"
+              rel="noreferrer"
+              >Request a sound</a
+            >
+          </div>
           <div class="meta-grid">
             <div class="meta-card">
-              <p class="label">Current delay</p>
+              <p class="label">Latency</p>
               <p class="value" id="delay-value">0ms</p>
-              <p class="hint">Use the controls below to fine-tune timing.</p>
+              <p class="hint">Adjust below to schedule playback.</p>
             </div>
             <div class="meta-card">
-              <p class="label">Quick controls</p>
-              <p class="value">Play or stop all</p>
-              <p class="hint">Tap a tile to preview instantly.</p>
-            </div>
-            <div class="meta-card">
-              <p class="label">Credit</p>
-              <p class="value">Made by 48okqy</p>
-              <p class="hint">Enjoy the refreshed experience.</p>
+              <p class="label">Ready for chaos</p>
+              <p class="value">Tap any tile</p>
+              <p class="hint">Hover for shimmer; click to play.</p>
             </div>
           </div>
         </div>
         <div class="hero-visual">
+          <div class="orb"></div>
           <div class="card">
-            <p>Ready when you are</p>
-            <p class="big-text">Set a delay & press play</p>
-            <p class="muted">Your timing, your soundtrack.</p>
+            <p>Live mix-ready</p>
+            <p class="big-text">Fresh neon interface</p>
+            <p class="muted">Built for instant reactions.</p>
           </div>
         </div>
       </header>
@@ -94,29 +104,15 @@
               <span class="label">Playback delay</span>
               <span class="delay-display" id="delay-display">0.0s</span>
             </div>
-            <div class="delay-inputs">
-              <input
-                type="range"
-                min="0"
-                max="20000"
-                step="100"
-                value="0"
-                id="delay-control"
-                aria-label="Playback delay in milliseconds"
-              />
-              <div class="number-input">
-                <label for="delay-input">ms</label>
-                <input
-                  type="number"
-                  min="0"
-                  max="20000"
-                  step="50"
-                  value="0"
-                  id="delay-input"
-                  aria-label="Playback delay text input in milliseconds"
-                />
-              </div>
-            </div>
+            <input
+              type="range"
+              min="0"
+              max="3000"
+              step="100"
+              value="0"
+              id="delay-control"
+              aria-label="Playback delay in milliseconds"
+            />
           </div>
         </div>
 
@@ -136,6 +132,6 @@
 
     <p id="footer">3kh0 © 2023 · Made by 48okqy</p>
 
-    <script type="application/javascript" src="loader.js?v=3"></script>
+    <script type="application/javascript" src="loader.js?v=2"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v3';
+const CACHE_VERSION = 'v2';
 const CACHE_NAME = `soundboard-cache-${CACHE_VERSION}`;
 const VERSION_SUFFIX = `?v=${CACHE_VERSION}`;
 const ASSETS = [
