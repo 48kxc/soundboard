@@ -1,4 +1,3 @@
-<!--an unminifed version is at og.html-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -37,29 +36,79 @@
 
   <body>
     <div class="page">
+      <nav class="top-bar">
+        <div class="brand">
+          <span class="dot"></span>
+          Sound Playground
+        </div>
+        <div class="top-actions">
+          <button class="pill ghost" onclick="javascript:playAll()">Play All</button>
+          <button class="pill" onclick="javascript:stopAll()">Stop All</button>
+        </div>
+      </nav>
+
       <header class="hero">
-        <p class="eyebrow">Sound Playground</p>
-        <h1>Online Soundboard</h1>
-        <h2>
-          Just click on the vibrant tiles to play the sound.<br />
-          <span class="hint">All the chaos, none of the hassle.</span>
-        </h2>
-        <div class="cta-row">
-          <button class="pill" onclick="javascript:playAll()">Provoke Chaos</button>
-          <button class="pill ghost" onclick="javascript:stopAll()">Stop Everything</button>
-          <a class="pill link" href="https://forms.gle/hoiTBEZ4p14iupXH6" target="_blank" rel="noreferrer">Request a sound</a>
+        <div class="hero-content">
+          <p class="eyebrow">Remixed for 2024</p>
+          <h1>Online Soundboard</h1>
+          <p class="lede">
+            A sleek, modern playground for your favorite chaos-inducing sounds. Cue
+            up a delay, click a tile, and let the vibes roll.
+          </p>
+          <div class="cta-row">
+            <button class="pill" onclick="javascript:playAll()">Provoke Chaos</button>
+            <button class="pill ghost" onclick="javascript:stopAll()">Stop Everything</button>
+            <a
+              class="pill link"
+              href="https://forms.gle/hoiTBEZ4p14iupXH6"
+              target="_blank"
+              rel="noreferrer"
+              >Request a sound</a
+            >
+          </div>
+          <div class="meta-grid">
+            <div class="meta-card">
+              <p class="label">Latency</p>
+              <p class="value" id="delay-value">0ms</p>
+              <p class="hint">Adjust below to schedule playback.</p>
+            </div>
+            <div class="meta-card">
+              <p class="label">Ready for chaos</p>
+              <p class="value">Tap any tile</p>
+              <p class="hint">Hover for shimmer; click to play.</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="orb"></div>
+          <div class="card">
+            <p>Live mix-ready</p>
+            <p class="big-text">Fresh neon interface</p>
+            <p class="muted">Built for instant reactions.</p>
+          </div>
         </div>
       </header>
 
       <main class="soundboard">
         <div class="soundboard-header">
           <div>
-            <p class="badge">Live mix-ready</p>
-            <p class="subtle">Tap any tile to hear it instantly.</p>
+            <p class="badge">Interactive Deck</p>
+            <p class="subtle">Tap a tile to hear it with your chosen delay.</p>
           </div>
-          <div class="legend">
-            <span class="dot"></span>
-            <span>Hover for a shimmer, click to play.</span>
+          <div class="delay-control">
+            <div class="label-row">
+              <span class="label">Playback delay</span>
+              <span class="delay-display" id="delay-display">0.0s</span>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="3000"
+              step="100"
+              value="0"
+              id="delay-control"
+              aria-label="Playback delay in milliseconds"
+            />
           </div>
         </div>
 
