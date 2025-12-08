@@ -1,168 +1,150 @@
- <!DOCTYPE html>
- <html lang="en">
-   <head>
-     <meta charset="UTF-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
- 
-     <title>Online Soundboard</title>
-     <meta name="title" content="Online Soundboard" />
-     <meta
-       name="description"
-       content="A collection of sounds to play out of context. Perfect for school! Just play it when your teacher is talking and I bet they will love it!"
-     />
-     <meta name="robots" content="index, follow" />
- 
--    <link rel="stylesheet" href="css/styles.css" />
--    <link rel="stylesheet" href="css/spinner.css" />
-+    <link rel="stylesheet" href="css/styles.css?v=3" />
-+    <link rel="stylesheet" href="css/spinner.css?v=3" />
-     <link rel="icon" href="img/mlg-favicon.png" />
-     <link rel="shortcut icon" href="img/mlg-favicon.png" type="image/x-icon" />
-     <link rel="apple-touch-icon" href="img/mlg-favicon.png" type="image/x-icon" />
-     <link rel="manifest" href="./manifest.json" />
- 
-     <script>
-+      const SERVICE_WORKER_VERSION = "v3";
-       if ("serviceWorker" in navigator) {
-         navigator.serviceWorker
--          .register("/sw.js")
--          .then(function (registration) {
-+          .register(`/sw.js?v=${SERVICE_WORKER_VERSION}`, {
-+            updateViaCache: "none",
-+          })
-+          .then((registration) => {
-+            registration.update?.();
-             console.log("Service worker registered:", registration);
-           })
--          .catch(function (error) {
-+          .catch((error) => {
-             console.log("Service worker registration failed:", error);
-           });
-       }
-     </script>
-   </head>
- 
-   <body>
-     <div class="page">
-+      <nav class="top-bar">
-+        <div class="brand">Online Soundboard</div>
-+        <div class="top-actions">
-+          <button class="btn ghost" onclick="javascript:playAll()">Play All</button>
-+          <button class="btn primary" onclick="javascript:stopAll()">Stop All</button>
-+        </div>
-+      </nav>
-+
-       <header class="hero">
--        <p class="eyebrow">Sound Playground</p>
--        <h1>Online Soundboard</h1>
--        <h2>
--          Just click on the vibrant tiles to play the sound.<br />
--          <span class="hint">All the chaos, none of the hassle.</span>
--        </h2>
--        <div class="cta-row">
--          <button class="pill" onclick="javascript:playAll()">Provoke Chaos</button>
--          <button class="pill ghost" onclick="javascript:stopAll()">Stop Everything</button>
--          <a class="pill link" href="https://forms.gle/hoiTBEZ4p14iupXH6" target="_blank" rel="noreferrer">Request a sound</a>
-+        <div class="hero-content">
-+          <p class="eyebrow">Minimal & bold</p>
-+          <h1>Sound Playground</h1>
-+          <p class="lede">
-+            Stark lines, unified controls, and a flexible delay so you can cue chaos
-+            exactly when you want it.
-+          </p>
-+          <div class="meta-grid">
-+            <div class="meta-card">
-+              <p class="label">Current delay</p>
-+              <p class="value" id="delay-value">0ms</p>
-+              <p class="hint">Use the controls below to fine-tune timing.</p>
-+            </div>
-+            <div class="meta-card">
-+              <p class="label">Quick controls</p>
-+              <p class="value">Play or stop all</p>
-+              <p class="hint">Tap a tile to preview instantly.</p>
-+            </div>
-+            <div class="meta-card">
-+              <p class="label">Credit</p>
-+              <p class="value">Made by 48okqy</p>
-+              <p class="hint">Enjoy the refreshed experience.</p>
-+            </div>
-+          </div>
-+        </div>
-+        <div class="hero-visual">
-+          <div class="card">
-+            <p>Ready when you are</p>
-+            <p class="big-text">Set a delay & press play</p>
-+            <p class="muted">Your timing, your soundtrack.</p>
-+          </div>
-         </div>
-       </header>
- 
-       <main class="soundboard">
-         <div class="soundboard-header">
-           <div>
--            <p class="badge">Live mix-ready</p>
--            <p class="subtle">Tap any tile to hear it instantly.</p>
-+            <p class="badge">Interactive Deck</p>
-+            <p class="subtle">Tap a tile to hear it with your chosen delay.</p>
-           </div>
--          <div class="legend">
--            <span class="dot"></span>
--            <span>Hover for a shimmer, click to play.</span>
-+          <div class="delay-control">
-+            <div class="label-row">
-+              <span class="label">Playback delay</span>
-+              <span class="delay-display" id="delay-display">0.0s</span>
-+            </div>
-+            <div class="delay-inputs">
-+              <input
-+                type="range"
-+                min="0"
-+                max="20000"
-+                step="100"
-+                value="0"
-+                id="delay-control"
-+                aria-label="Playback delay in milliseconds"
-+              />
-+              <div class="number-input">
-+                <label for="delay-input">ms</label>
-+                <input
-+                  type="number"
-+                  min="0"
-+                  max="20000"
-+                  step="50"
-+                  value="0"
-+                  id="delay-input"
-+                  aria-label="Playback delay text input in milliseconds"
-+                />
-+              </div>
-+            </div>
-           </div>
-         </div>
- 
-         <div class="soundboard-container">
-           <div class="flex-container">
-             <div class="spinner"></div>
-           </div>
-         </div>
-       </main>
-     </div>
- 
--    <div class="control">
--      Live controls
--      <button class="woah" onclick="javascript:playAll()">Provoke Chaos</button>
--      <button class="woah" onclick="javascript:stopAll()">Stop Everything</button>
--    </div>
-+      <div class="control">
-+        Live controls
-+        <button class="btn outline" onclick="javascript:playAll()">Provoke Chaos</button>
-+        <button class="btn primary" onclick="javascript:stopAll()">Stop Everything</button>
-+      </div>
- 
--    <p id="footer">3kh0 © 2023</p>
-+    <p id="footer">3kh0 © 2023 · Made by 48okqy</p>
- 
--    <script type="application/javascript" src="loader.js"></script>
-+    <script type="application/javascript" src="loader.js?v=3"></script>
-   </body>
- </html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Online Soundboard</title>
+    <meta name="title" content="Online Soundboard" />
+    <meta
+      name="description"
+      content="A collection of sounds to play out of context. Perfect for school! Just play it when your teacher is talking and I bet they will love it!"
+    />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="stylesheet" href="css/styles.css?v=4" />
+    <link rel="stylesheet" href="css/spinner.css?v=4" />
+    <link rel="icon" href="img/mlg-favicon.png" />
+    <link rel="shortcut icon" href="img/mlg-favicon.png" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="img/mlg-favicon.png" type="image/x-icon" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <script>
+      const SERVICE_WORKER_VERSION = "v4";
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register(`/sw.js?v=${SERVICE_WORKER_VERSION}`, {
+            updateViaCache: "none",
+          })
+          .then((registration) => {
+            registration.update?.();
+            console.log("Service worker registered:", registration);
+          })
+          .catch((error) => {
+            console.log("Service worker registration failed:", error);
+          });
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="page">
+      <nav class="top-bar">
+        <div class="bar-left">
+          <div class="brand">Online Soundboard</div>
+          <span class="credit-chip">Made by 48okqy</span>
+        </div>
+        <div class="top-actions">
+          <button class="btn ghost" onclick="javascript:playAll()">Play All</button>
+          <button class="btn solid" onclick="javascript:stopAll()">Stop All</button>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div class="hero-content">
+          <p class="eyebrow">Hard lines · Grey / Black / Red</p>
+          <h1>Hard-lined sound playground</h1>
+          <p class="lede">
+            Sharp edges, unified buttons, and a precision delay so you can cue sound chaos exactly when you want.
+          </p>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <p class="label">Current delay</p>
+              <p class="value" id="delay-value">0ms</p>
+              <p class="hint">Use the controls to fine-tune timing.</p>
+            </div>
+            <div class="stat-card">
+              <p class="label">Quick controls</p>
+              <p class="value">Play or stop all</p>
+              <p class="hint">Tap any tile to preview instantly.</p>
+            </div>
+            <div class="stat-card">
+              <p class="label">Credit</p>
+              <p class="value">Made by 48okqy</p>
+              <p class="hint">A modern, simplified theme.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-panel">
+          <p class="label">Delay control</p>
+          <div class="delay-control">
+            <div class="label-row">
+              <span class="label">Playback delay</span>
+              <span class="delay-display" id="delay-display">0.00s</span>
+            </div>
+            <div class="delay-inputs">
+              <input
+                type="range"
+                min="0"
+                max="20000"
+                step="100"
+                value="0"
+                id="delay-control"
+                aria-label="Playback delay in milliseconds"
+              />
+              <div class="number-input">
+                <label for="delay-input">ms</label>
+                <input
+                  type="number"
+                  min="0"
+                  max="20000"
+                  step="50"
+                  value="0"
+                  id="delay-input"
+                  aria-label="Playback delay text input in milliseconds"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <button class="btn outline" onclick="javascript:playAll()">Provoke Chaos</button>
+            <button class="btn solid" onclick="javascript:stopAll()">Stop Everything</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="board">
+        <div class="board-head">
+          <div>
+            <p class="kicker">Interactive Deck</p>
+            <p class="subtle">Tap a tile to hear it with your chosen delay.</p>
+          </div>
+          <div class="inline-actions">
+            <button class="btn ghost" onclick="javascript:playAll()">Play All</button>
+            <button class="btn solid" onclick="javascript:stopAll()">Stop All</button>
+          </div>
+        </div>
+
+        <div class="board-body">
+          <div class="soundboard-container">
+            <div class="flex-container">
+              <div class="spinner"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="control">
+      Live controls
+      <button class="btn outline" onclick="javascript:playAll()">Provoke Chaos</button>
+      <button class="btn solid" onclick="javascript:stopAll()">Stop Everything</button>
+    </div>
+
+    <p id="footer">3kh0 © 2023 · Made by 48okqy</p>
+
+    <script type="application/javascript" src="loader.js?v=4"></script>
+  </body>
+</html>
