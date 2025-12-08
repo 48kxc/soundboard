@@ -1,12 +1,11 @@
-/* Unminify the code here: https://unminify.com/ */
 .spinner {
-  margin: 50px auto;
-  width: 60px;
-  height: 60px;
-  border: 6px solid rgba(255, 255, 255, 0.18);
-  border-top-color: #6fdbff;
-  border-radius: 50%;
-  box-shadow: 0 0 25px rgba(111, 219, 255, 0.5);
+  margin: 60px auto;
+  width: 64px;
+  height: 64px;
+  border: 6px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--accent, #e50914);
+  border-radius: 6px;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.35);
   animation: spin 0.9s ease-in-out infinite;
 }
 
